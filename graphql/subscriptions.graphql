@@ -1,0 +1,58 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateChatroom {
+  onCreateChatroom {
+    id
+    name
+    description
+    owner
+    messages {
+      nextToken
+    }
+  }
+}
+subscription OnUpdateChatroom {
+  onUpdateChatroom {
+    id
+    name
+    description
+    owner
+    messages {
+      nextToken
+    }
+  }
+}
+subscription OnDeleteChatroom {
+  onDeleteChatroom {
+    id
+    name
+    description
+    owner
+    messages {
+      nextToken
+    }
+  }
+}
+subscription OnCreateMessage {
+  onCreateMessage {
+    id
+    roomId
+    message
+    owner
+  }
+}
+subscription OnUpdateMessage {
+  onUpdateMessage {
+    id
+    roomId
+    message
+    owner
+  }
+}
+subscription OnDeleteMessage {
+  onDeleteMessage {
+    id
+    roomId
+    message
+    owner
+  }
+}

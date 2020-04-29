@@ -1,0 +1,76 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateChatroom(
+  $input: CreateChatroomInput!
+  $condition: ModelchatroomConditionInput
+) {
+  createChatroom(input: $input, condition: $condition) {
+    id
+    name
+    description
+    owner
+    messages {
+      nextToken
+    }
+  }
+}
+mutation UpdateChatroom(
+  $input: UpdateChatroomInput!
+  $condition: ModelchatroomConditionInput
+) {
+  updateChatroom(input: $input, condition: $condition) {
+    id
+    name
+    description
+    owner
+    messages {
+      nextToken
+    }
+  }
+}
+mutation DeleteChatroom(
+  $input: DeleteChatroomInput!
+  $condition: ModelchatroomConditionInput
+) {
+  deleteChatroom(input: $input, condition: $condition) {
+    id
+    name
+    description
+    owner
+    messages {
+      nextToken
+    }
+  }
+}
+mutation CreateMessage(
+  $input: CreateMessageInput!
+  $condition: ModelmessageConditionInput
+) {
+  createMessage(input: $input, condition: $condition) {
+    id
+    roomId
+    message
+    owner
+  }
+}
+mutation UpdateMessage(
+  $input: UpdateMessageInput!
+  $condition: ModelmessageConditionInput
+) {
+  updateMessage(input: $input, condition: $condition) {
+    id
+    roomId
+    message
+    owner
+  }
+}
+mutation DeleteMessage(
+  $input: DeleteMessageInput!
+  $condition: ModelmessageConditionInput
+) {
+  deleteMessage(input: $input, condition: $condition) {
+    id
+    roomId
+    message
+    owner
+  }
+}
