@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import AWSMobileClient
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,18 +20,65 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
-
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            
+            //AWSモバイルクライアントの初期化
+            AWSMobileClient.default().initialize { [weak self, window] (userState, error) in
+                guard let self = self else { return }
+                if let error = error {
+                    print("error:\(error.localizedDescription)")
+                    return
+                }
+                
+                if let userState = userState {
+                    switch userState {
+                    case .signedIn:
+                        self.showHomeView(in: window)
+                    case .signedOut:
+                        self.showSignInView(in: window)
+                    default:
+                        AWSMobileClient.default().signOut()
+                        self.showSignInView(in: window)
+                    }
+                }
+            }
+            
+            //UserStateListenerの登録
+            AWSMobileClient.default().addUserStateListener(self) { [weak self,window] (userState,info) in
+                guard let self = self else { return }
+                switch userState {
+                case .signedOut, .signedOutUserPoolsTokenInvalid:
+                    self.showSignInView(in: window)
+                case .signedIn:
+                    self.showHomeView(in: window)
+                default:
+                    AWSMobileClient.default().signOut()
+                    self.showSignInView(in: window)
+                    return
+                }
+            }
+        }
+    }
+    
+    // home画面を表示する
+    func showHomeView(in window:UIWindow){
+        DispatchQueue.main.async {
+            window.rootViewController = UIHostingController(rootView: ChatroomListView())
             self.window = window
             window.makeKeyAndVisible()
         }
     }
-
+    
+    //認証画面を表示する
+    func showSignInView(in window:UIWindow) {
+        DispatchQueue.main.async {
+            window.rootViewController = UIHostingController(rootView: SignInView(viewModel: SignInViewModel()))
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+    }
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

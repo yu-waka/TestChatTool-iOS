@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2956833B4884F9BA439590F8 /* Pods_TestChatTool_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CAA5FC2EE8D38D94891CB0 /* Pods_TestChatTool_iOS.framework */; };
+		5E3C5A5A2469351600677253 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A592469351600677253 /* SignInViewModel.swift */; };
+		5E3C5A5F24693F7E00677253 /* RoomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A5E24693F7E00677253 /* RoomInfo.swift */; };
+		5E566330245FBDDE0076EBCE /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E56632F245FBDDE0076EBCE /* SignInView.swift */; };
 		5E92871924595E1A008B2336 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5E92871824595E19008B2336 /* awsconfiguration.json */; };
-		5E92871C24595E7C008B2336 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E92871B24595E7C008B2336 /* API.swift */; };
 		5ED208322457C8D3007EBB56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED208312457C8D3007EBB56 /* AppDelegate.swift */; };
 		5ED208342457C8D3007EBB56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED208332457C8D3007EBB56 /* SceneDelegate.swift */; };
 		5ED208362457C8D3007EBB56 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED208352457C8D3007EBB56 /* ContentView.swift */; };
@@ -44,8 +46,10 @@
 /* Begin PBXFileReference section */
 		08159C53A89BB0F2A31C0973 /* Pods-TestChatTool-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestChatTool-iOS.debug.xcconfig"; path = "Target Support Files/Pods-TestChatTool-iOS/Pods-TestChatTool-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		2AF9CE21BBF36587DF589F2B /* Pods_TestChatTool_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestChatTool_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E3C5A592469351600677253 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		5E3C5A5E24693F7E00677253 /* RoomInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfo.swift; sourceTree = "<group>"; };
+		5E56632F245FBDDE0076EBCE /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5E92871824595E19008B2336 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = awsconfiguration.json; path = "TestChatTool-iOS/awsconfiguration.json"; sourceTree = SOURCE_ROOT; };
-		5E92871B24595E7C008B2336 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
 		5ED2082E2457C8D3007EBB56 /* TestChatTool-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestChatTool-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ED208312457C8D3007EBB56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5ED208332457C8D3007EBB56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,10 +103,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E3C5A57246934BE00677253 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5E3C5A58246934ED00677253 /* SignIn */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5E3C5A58246934ED00677253 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				5E3C5A592469351600677253 /* SignInViewModel.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		5E3C5A5B24693CDB00677253 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5E3C5A5E24693F7E00677253 /* RoomInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5E56632E245FBDBA0076EBCE /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				5E56632F245FBDDE0076EBCE /* SignInView.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
 		5E92871A24595E61008B2336 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				5E92871B24595E7C008B2336 /* API.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -132,9 +167,11 @@
 		5ED208302457C8D3007EBB56 /* TestChatTool-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				5E92871A24595E61008B2336 /* API */,
 				5E92871824595E19008B2336 /* awsconfiguration.json */,
+				5E92871A24595E61008B2336 /* API */,
 				5ED208612457CE15007EBB56 /* View */,
+				5E3C5A57246934BE00677253 /* ViewModel */,
+				5E3C5A5B24693CDB00677253 /* Model */,
 				5ED208312457C8D3007EBB56 /* AppDelegate.swift */,
 				5ED208332457C8D3007EBB56 /* SceneDelegate.swift */,
 				5ED208352457C8D3007EBB56 /* ContentView.swift */,
@@ -175,6 +212,7 @@
 		5ED208612457CE15007EBB56 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5E56632E245FBDBA0076EBCE /* SignIn */,
 				5ED208622457CE4B007EBB56 /* ChatroomListView.swift */,
 				5ED208642457D0E2007EBB56 /* ChatroomRow.swift */,
 			);
@@ -462,11 +500,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E566330245FBDDE0076EBCE /* SignInView.swift in Sources */,
+				5E3C5A5A2469351600677253 /* SignInViewModel.swift in Sources */,
+				5E3C5A5F24693F7E00677253 /* RoomInfo.swift in Sources */,
 				5ED208652457D0E2007EBB56 /* ChatroomRow.swift in Sources */,
 				5ED208322457C8D3007EBB56 /* AppDelegate.swift in Sources */,
 				5ED208632457CE4B007EBB56 /* ChatroomListView.swift in Sources */,
 				5ED208342457C8D3007EBB56 /* SceneDelegate.swift in Sources */,
-				5E92871C24595E7C008B2336 /* API.swift in Sources */,
 				5ED208362457C8D3007EBB56 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
