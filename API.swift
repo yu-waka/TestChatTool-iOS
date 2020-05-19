@@ -2805,6 +2805,115 @@ public final class OnCreateMessageSubscription: GraphQLSubscription {
   }
 }
 
+public final class OnCreateMessageByRoomIdSubscription: GraphQLSubscription {
+  public static let operationString =
+    "subscription OnCreateMessageByRoomId($roomId: String!) {\n  onCreateMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+
+  public var roomId: String
+
+  public init(roomId: String) {
+    self.roomId = roomId
+  }
+
+  public var variables: GraphQLMap? {
+    return ["roomId": roomId]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Subscription"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("onCreateMessageByRoomID", arguments: ["roomId": GraphQLVariable("roomId")], type: .object(OnCreateMessageByRoomId.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(onCreateMessageByRoomId: OnCreateMessageByRoomId? = nil) {
+      self.init(snapshot: ["__typename": "Subscription", "onCreateMessageByRoomID": onCreateMessageByRoomId.flatMap { $0.snapshot }])
+    }
+
+    public var onCreateMessageByRoomId: OnCreateMessageByRoomId? {
+      get {
+        return (snapshot["onCreateMessageByRoomID"] as? Snapshot).flatMap { OnCreateMessageByRoomId(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "onCreateMessageByRoomID")
+      }
+    }
+
+    public struct OnCreateMessageByRoomId: GraphQLSelectionSet {
+      public static let possibleTypes = ["message"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("message", type: .scalar(String.self)),
+        GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var roomId: GraphQLID {
+        get {
+          return snapshot["roomId"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "roomId")
+        }
+      }
+
+      public var message: String? {
+        get {
+          return snapshot["message"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "message")
+        }
+      }
+
+      public var owner: String {
+        get {
+          return snapshot["owner"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+    }
+  }
+}
+
 public final class OnUpdateMessageSubscription: GraphQLSubscription {
   public static let operationString =
     "subscription OnUpdateMessage {\n  onUpdateMessage {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
@@ -2907,6 +3016,115 @@ public final class OnUpdateMessageSubscription: GraphQLSubscription {
   }
 }
 
+public final class OnUpdateMessageByRoomIdSubscription: GraphQLSubscription {
+  public static let operationString =
+    "subscription OnUpdateMessageByRoomId($roomId: String!) {\n  onUpdateMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+
+  public var roomId: String
+
+  public init(roomId: String) {
+    self.roomId = roomId
+  }
+
+  public var variables: GraphQLMap? {
+    return ["roomId": roomId]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Subscription"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("onUpdateMessageByRoomID", arguments: ["roomId": GraphQLVariable("roomId")], type: .object(OnUpdateMessageByRoomId.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(onUpdateMessageByRoomId: OnUpdateMessageByRoomId? = nil) {
+      self.init(snapshot: ["__typename": "Subscription", "onUpdateMessageByRoomID": onUpdateMessageByRoomId.flatMap { $0.snapshot }])
+    }
+
+    public var onUpdateMessageByRoomId: OnUpdateMessageByRoomId? {
+      get {
+        return (snapshot["onUpdateMessageByRoomID"] as? Snapshot).flatMap { OnUpdateMessageByRoomId(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "onUpdateMessageByRoomID")
+      }
+    }
+
+    public struct OnUpdateMessageByRoomId: GraphQLSelectionSet {
+      public static let possibleTypes = ["message"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("message", type: .scalar(String.self)),
+        GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var roomId: GraphQLID {
+        get {
+          return snapshot["roomId"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "roomId")
+        }
+      }
+
+      public var message: String? {
+        get {
+          return snapshot["message"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "message")
+        }
+      }
+
+      public var owner: String {
+        get {
+          return snapshot["owner"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+    }
+  }
+}
+
 public final class OnDeleteMessageSubscription: GraphQLSubscription {
   public static let operationString =
     "subscription OnDeleteMessage {\n  onDeleteMessage {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
@@ -2941,6 +3159,115 @@ public final class OnDeleteMessageSubscription: GraphQLSubscription {
     }
 
     public struct OnDeleteMessage: GraphQLSelectionSet {
+      public static let possibleTypes = ["message"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("message", type: .scalar(String.self)),
+        GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var roomId: GraphQLID {
+        get {
+          return snapshot["roomId"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "roomId")
+        }
+      }
+
+      public var message: String? {
+        get {
+          return snapshot["message"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "message")
+        }
+      }
+
+      public var owner: String {
+        get {
+          return snapshot["owner"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+    }
+  }
+}
+
+public final class OnDeleteMessageByRoomIdSubscription: GraphQLSubscription {
+  public static let operationString =
+    "subscription OnDeleteMessageByRoomId($roomId: String!) {\n  onDeleteMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+
+  public var roomId: String
+
+  public init(roomId: String) {
+    self.roomId = roomId
+  }
+
+  public var variables: GraphQLMap? {
+    return ["roomId": roomId]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Subscription"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("onDeleteMessageByRoomID", arguments: ["roomId": GraphQLVariable("roomId")], type: .object(OnDeleteMessageByRoomId.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(onDeleteMessageByRoomId: OnDeleteMessageByRoomId? = nil) {
+      self.init(snapshot: ["__typename": "Subscription", "onDeleteMessageByRoomID": onDeleteMessageByRoomId.flatMap { $0.snapshot }])
+    }
+
+    public var onDeleteMessageByRoomId: OnDeleteMessageByRoomId? {
+      get {
+        return (snapshot["onDeleteMessageByRoomID"] as? Snapshot).flatMap { OnDeleteMessageByRoomId(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "onDeleteMessageByRoomID")
+      }
+    }
+
+    public struct OnDeleteMessageByRoomId: GraphQLSelectionSet {
       public static let possibleTypes = ["message"]
 
       public static let selections: [GraphQLSelection] = [

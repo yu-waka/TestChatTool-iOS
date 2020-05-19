@@ -40,6 +40,14 @@ subscription OnCreateMessage {
     owner
   }
 }
+subscription OnCreateMessageByRoomId($roomId: String!) {
+  onCreateMessageByRoomID(roomId: $roomId) {
+    id
+    roomId
+    message
+    owner
+  }
+}
 subscription OnUpdateMessage {
   onUpdateMessage {
     id
@@ -48,8 +56,24 @@ subscription OnUpdateMessage {
     owner
   }
 }
+subscription OnUpdateMessageByRoomId($roomId: String!) {
+  onUpdateMessageByRoomID(roomId: $roomId) {
+    id
+    roomId
+    message
+    owner
+  }
+}
 subscription OnDeleteMessage {
   onDeleteMessage {
+    id
+    roomId
+    message
+    owner
+  }
+}
+subscription OnDeleteMessageByRoomId($roomId: String!) {
+  onDeleteMessageByRoomID(roomId: $roomId) {
     id
     roomId
     message
