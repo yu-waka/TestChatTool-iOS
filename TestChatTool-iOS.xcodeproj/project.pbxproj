@@ -10,6 +10,14 @@
 		2956833B4884F9BA439590F8 /* Pods_TestChatTool_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CAA5FC2EE8D38D94891CB0 /* Pods_TestChatTool_iOS.framework */; };
 		5E3C5A5A2469351600677253 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A592469351600677253 /* SignInViewModel.swift */; };
 		5E3C5A5F24693F7E00677253 /* RoomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A5E24693F7E00677253 /* RoomInfo.swift */; };
+		5E3C5A62246947FD00677253 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A61246947FD00677253 /* API.swift */; };
+		5E3C5A642469498C00677253 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A632469498C00677253 /* Message.swift */; };
+		5E3C5A6624694AEA00677253 /* ChatroomListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A6524694AEA00677253 /* ChatroomListViewModel.swift */; };
+		5E3C5A68246CCDD700677253 /* MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A67246CCDD700677253 /* MessageList.swift */; };
+		5E3C5A6A246CCE4200677253 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A69246CCE4200677253 /* UserInfo.swift */; };
+		5E3C5A6C246E34EB00677253 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A6B246E34EB00677253 /* MessageRow.swift */; };
+		5E3C5A6E2472082500677253 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A6D2472082500677253 /* MessageListViewModel.swift */; };
+		5E3C5A7024721D6800677253 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A6F24721D6800677253 /* KeyboardObserver.swift */; };
 		5E566330245FBDDE0076EBCE /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E56632F245FBDDE0076EBCE /* SignInView.swift */; };
 		5E92871924595E1A008B2336 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5E92871824595E19008B2336 /* awsconfiguration.json */; };
 		5ED208322457C8D3007EBB56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED208312457C8D3007EBB56 /* AppDelegate.swift */; };
@@ -48,6 +56,14 @@
 		2AF9CE21BBF36587DF589F2B /* Pods_TestChatTool_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestChatTool_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E3C5A592469351600677253 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		5E3C5A5E24693F7E00677253 /* RoomInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfo.swift; sourceTree = "<group>"; };
+		5E3C5A61246947FD00677253 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
+		5E3C5A632469498C00677253 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		5E3C5A6524694AEA00677253 /* ChatroomListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomListViewModel.swift; sourceTree = "<group>"; };
+		5E3C5A67246CCDD700677253 /* MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageList.swift; sourceTree = "<group>"; };
+		5E3C5A69246CCE4200677253 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		5E3C5A6B246E34EB00677253 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
+		5E3C5A6D2472082500677253 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
+		5E3C5A6F24721D6800677253 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		5E56632F245FBDDE0076EBCE /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5E92871824595E19008B2336 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = awsconfiguration.json; path = "TestChatTool-iOS/awsconfiguration.json"; sourceTree = SOURCE_ROOT; };
 		5ED2082E2457C8D3007EBB56 /* TestChatTool-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestChatTool-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				5E3C5A58246934ED00677253 /* SignIn */,
+				5E3C5A6524694AEA00677253 /* ChatroomListViewModel.swift */,
+				5E3C5A6D2472082500677253 /* MessageListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -123,6 +141,9 @@
 			isa = PBXGroup;
 			children = (
 				5E3C5A5E24693F7E00677253 /* RoomInfo.swift */,
+				5E3C5A632469498C00677253 /* Message.swift */,
+				5E3C5A69246CCE4200677253 /* UserInfo.swift */,
+				5E3C5A6F24721D6800677253 /* KeyboardObserver.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -138,6 +159,7 @@
 		5E92871A24595E61008B2336 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				5E3C5A61246947FD00677253 /* API.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -215,6 +237,8 @@
 				5E56632E245FBDBA0076EBCE /* SignIn */,
 				5ED208622457CE4B007EBB56 /* ChatroomListView.swift */,
 				5ED208642457D0E2007EBB56 /* ChatroomRow.swift */,
+				5E3C5A67246CCDD700677253 /* MessageList.swift */,
+				5E3C5A6B246E34EB00677253 /* MessageRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -502,11 +526,19 @@
 			files = (
 				5E566330245FBDDE0076EBCE /* SignInView.swift in Sources */,
 				5E3C5A5A2469351600677253 /* SignInViewModel.swift in Sources */,
+				5E3C5A6E2472082500677253 /* MessageListViewModel.swift in Sources */,
+				5E3C5A6624694AEA00677253 /* ChatroomListViewModel.swift in Sources */,
 				5E3C5A5F24693F7E00677253 /* RoomInfo.swift in Sources */,
+				5E3C5A6C246E34EB00677253 /* MessageRow.swift in Sources */,
 				5ED208652457D0E2007EBB56 /* ChatroomRow.swift in Sources */,
+				5E3C5A68246CCDD700677253 /* MessageList.swift in Sources */,
 				5ED208322457C8D3007EBB56 /* AppDelegate.swift in Sources */,
 				5ED208632457CE4B007EBB56 /* ChatroomListView.swift in Sources */,
+				5E3C5A7024721D6800677253 /* KeyboardObserver.swift in Sources */,
+				5E3C5A6A246CCE4200677253 /* UserInfo.swift in Sources */,
 				5ED208342457C8D3007EBB56 /* SceneDelegate.swift in Sources */,
+				5E3C5A642469498C00677253 /* Message.swift in Sources */,
+				5E3C5A62246947FD00677253 /* API.swift in Sources */,
 				5ED208362457C8D3007EBB56 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

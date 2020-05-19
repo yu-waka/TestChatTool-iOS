@@ -7,7 +7,9 @@
 //
 
 import SwiftUI
-struct RoomInfo{
+import AWSAppSync
+
+struct RoomInfo:Identifiable,Hashable{
     var id : String
     var roomName: String
     var ownerName: String

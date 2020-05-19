@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct ChatroomRow: View {
+    var chatroomInfo :RoomInfo
     var body: some View {
         VStack(alignment:.leading){
-            Text("ChatroomName")
-            Text("owner")
+            Text(chatroomInfo.roomName)
+            Text(chatroomInfo.ownerName)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.all, 5.0)
@@ -24,6 +25,6 @@ struct ChatroomRow: View {
 
 struct ChatroomRow_Previews: PreviewProvider {
     static var previews: some View {
-        ChatroomRow()
+        ChatroomRow(chatroomInfo: RoomInfo(id: "id3", roomName: "会議室", ownerName: "システム"))
     }
 }

@@ -1,4 +1,11 @@
 PODS:
+  - AppSyncRealTimeClient (1.1.6):
+    - Starscream (= 3.0.6)
+  - AWSAppSync (3.1.2):
+    - AppSyncRealTimeClient (~> 1.1)
+    - AWSCore (~> 2.13.0)
+    - ReachabilitySwift (~> 5.0.0)
+    - SQLite.swift (~> 0.12.2)
   - AWSAuthCore (2.13.2):
     - AWSCore (= 2.13.2)
   - AWSAuthUI (2.13.2):
@@ -15,28 +22,29 @@ PODS:
   - AWSUserPoolsSignIn (2.13.2):
     - AWSAuthCore (= 2.13.2)
     - AWSCognitoIdentityProvider (= 2.13.2)
+  - ReachabilitySwift (5.0.0)
   - RxBlocking (5.1.1):
-    - RxSwift (~> 5)
-  - RxCocoa (5.1.1):
-    - RxRelay (~> 5)
-    - RxSwift (~> 5)
-  - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - RxTest (5.1.1):
     - RxSwift (~> 5)
+  - SQLite.swift (0.12.2):
+    - SQLite.swift/standard (= 0.12.2)
+  - SQLite.swift/standard (0.12.2)
+  - Starscream (3.0.6)
 
 DEPENDENCIES:
-  - AWSAuthUI (~> 2.13.0)
-  - AWSMobileClient (~> 2.13.0)
-  - AWSUserPoolsSignIn (~> 2.13.0)
+  - AWSAppSync
+  - AWSAuthUI (~> 2.13.2)
+  - AWSMobileClient (~> 2.13.2)
+  - AWSUserPoolsSignIn (~> 2.13.2)
   - RxBlocking (~> 5)
-  - RxCocoa (~> 5)
-  - RxSwift (~> 5)
   - RxTest (~> 5)
 
 SPEC REPOS:
   trunk:
+    - AppSyncRealTimeClient
+    - AWSAppSync
     - AWSAuthCore
     - AWSAuthUI
     - AWSCognitoIdentityProvider
@@ -44,13 +52,16 @@ SPEC REPOS:
     - AWSCore
     - AWSMobileClient
     - AWSUserPoolsSignIn
+    - ReachabilitySwift
     - RxBlocking
-    - RxCocoa
-    - RxRelay
     - RxSwift
     - RxTest
+    - SQLite.swift
+    - Starscream
 
 SPEC CHECKSUMS:
+  AppSyncRealTimeClient: 4a2ccdc1722750a1f4d76e216f9bfb1cf12f10de
+  AWSAppSync: 4b91c48712913ca4f2bb38273280190e65d59a45
   AWSAuthCore: 890aaf36fa3a913a5948851a576c02456bed4c5b
   AWSAuthUI: 37a1821b367d063fe3551eff3b5be52eec510636
   AWSCognitoIdentityProvider: 68455a8d170bb6cd0ec17d261da0ab3d623232b0
@@ -58,12 +69,13 @@ SPEC CHECKSUMS:
   AWSCore: 8e878a5b1b99cdf3d7df0c1c86be0bfcd6294c11
   AWSMobileClient: bdec2a26617590bd3eece9bf208005bc4682d424
   AWSUserPoolsSignIn: 2238103c9fdd1b1a285be9086e5242dd7b398297
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   RxBlocking: 5f700a78cad61ce253ebd37c9a39b5ccc76477b4
-  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   RxTest: 711632d5644dffbeb62c936a521b5b008a1e1faa
+  SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
-PODFILE CHECKSUM: 308098c3325d0e7dda41f6b047a6b0c2d2ba20b3
+PODFILE CHECKSUM: 74e2a35631e81b03358df2cd4e4d8965503d4feb
 
 COCOAPODS: 1.9.1

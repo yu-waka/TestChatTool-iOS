@@ -23,28 +23,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            
-            //AWSモバイルクライアントの初期化
-            AWSMobileClient.default().initialize { [weak self, window] (userState, error) in
-                guard let self = self else { return }
-                if let error = error {
-                    print("error:\(error.localizedDescription)")
-                    return
-                }
-                
-                if let userState = userState {
-                    switch userState {
-                    case .signedIn:
-                        self.showHomeView(in: window)
-                    case .signedOut:
-                        self.showSignInView(in: window)
-                    default:
-                        AWSMobileClient.default().signOut()
-                        self.showSignInView(in: window)
-                    }
-                }
+            switch AWSMobileClient.default().currentUserState {
+                case .signedIn:
+                    self.showHomeView(in: window)
+                case .signedOut:
+                    self.showSignInView(in: window)
+                default:
+                    AWSMobileClient.default().signOut()
+                    self.showSignInView(in: window)
+
             }
-            
             //UserStateListenerの登録
             AWSMobileClient.default().addUserStateListener(self) { [weak self,window] (userState,info) in
                 guard let self = self else { return }
@@ -65,7 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // home画面を表示する
     func showHomeView(in window:UIWindow){
         DispatchQueue.main.async {
-            window.rootViewController = UIHostingController(rootView: ChatroomListView())
+            window.rootViewController = UIHostingController(rootView: ChatroomListView(viewModel: ChatroomListViewModel()))
             self.window = window
             window.makeKeyAndVisible()
         }

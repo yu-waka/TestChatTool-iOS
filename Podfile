@@ -6,11 +6,10 @@ target 'TestChatTool-iOS' do
   use_frameworks!
 
   # Pods for TestChatTool-iOS
-  pod 'RxSwift',    '~> 5'
-  pod 'RxCocoa',    '~> 5'
-  pod 'AWSMobileClient','~> 2.13.0'
-  pod 'AWSAuthUI','~> 2.13.0'
-  pod 'AWSUserPoolsSignIn', '~> 2.13.0'
+  pod 'AWSMobileClient','~> 2.13.2'
+  pod 'AWSAuthUI','~> 2.13.2'
+  pod 'AWSUserPoolsSignIn', '~> 2.13.2'
+  pod 'AWSAppSync' 
   target 'TestChatTool-iOSTests' do
     inherit! :search_paths
     # Pods for testing

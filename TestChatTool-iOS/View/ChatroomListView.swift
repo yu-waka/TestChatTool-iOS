@@ -9,15 +9,26 @@
 import SwiftUI
 
 struct ChatroomListView: View {
+    @ObservedObject var viewModel:ChatroomListViewModel
     var body: some View {
-        List{
-          ChatroomRow()
+        VStack{
+            NavigationView{
+                List{
+                    ForEach(viewModel.chatroomList){ x in
+                        NavigationLink(destination: MessageList(roomInfo: x, viewModel: MessageListViewModel())){
+                                ChatroomRow(chatroomInfo: x)
+                        }
+                    }
+                }.navigationBarTitle("Room一覧")
+            }
+        }.onAppear {
+            self.viewModel.fech()
         }
     }
 }
 
 struct ChatroomListView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatroomListView()
+        ChatroomListView(viewModel: ChatroomListViewModel())
     }
 }
