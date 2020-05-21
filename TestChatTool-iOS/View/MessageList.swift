@@ -29,6 +29,8 @@ struct MessageList: View {
                         if self.viewModel.newMessage == "" {
                             return
                         }
+                        self.viewModel.sendMessage(roomId: self.roomInfo.id)
+                        self.viewModel.newMessage = ""
                     }) {
                         Text("送信")
                     }
@@ -36,7 +38,7 @@ struct MessageList: View {
                     .navigationBarTitle(roomInfo.roomName)
         }.onAppear(){
             self.viewModel.fetch(roomId: self.roomInfo.id)
-            self.viewModel.subscribe()
+            self.viewModel.subscribe(roomId: self.roomInfo.id)
             self.keyboard.startObserve()
         }.onDisappear(){
             self.viewModel.unsubscribe()

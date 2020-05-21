@@ -14,7 +14,6 @@
 		5E3C5A642469498C00677253 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A632469498C00677253 /* Message.swift */; };
 		5E3C5A6624694AEA00677253 /* ChatroomListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A6524694AEA00677253 /* ChatroomListViewModel.swift */; };
 		5E3C5A68246CCDD700677253 /* MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A67246CCDD700677253 /* MessageList.swift */; };
-		5E3C5A6A246CCE4200677253 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A69246CCE4200677253 /* UserInfo.swift */; };
 		5E3C5A6C246E34EB00677253 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A6B246E34EB00677253 /* MessageRow.swift */; };
 		5E3C5A6E2472082500677253 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A6D2472082500677253 /* MessageListViewModel.swift */; };
 		5E3C5A7024721D6800677253 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3C5A6F24721D6800677253 /* KeyboardObserver.swift */; };
@@ -60,7 +59,6 @@
 		5E3C5A632469498C00677253 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5E3C5A6524694AEA00677253 /* ChatroomListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomListViewModel.swift; sourceTree = "<group>"; };
 		5E3C5A67246CCDD700677253 /* MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageList.swift; sourceTree = "<group>"; };
-		5E3C5A69246CCE4200677253 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		5E3C5A6B246E34EB00677253 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
 		5E3C5A6D2472082500677253 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		5E3C5A6F24721D6800677253 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 			children = (
 				5E3C5A5E24693F7E00677253 /* RoomInfo.swift */,
 				5E3C5A632469498C00677253 /* Message.swift */,
-				5E3C5A69246CCE4200677253 /* UserInfo.swift */,
 				5E3C5A6F24721D6800677253 /* KeyboardObserver.swift */,
 			);
 			path = Model;
@@ -535,7 +532,6 @@
 				5ED208322457C8D3007EBB56 /* AppDelegate.swift in Sources */,
 				5ED208632457CE4B007EBB56 /* ChatroomListView.swift in Sources */,
 				5E3C5A7024721D6800677253 /* KeyboardObserver.swift in Sources */,
-				5E3C5A6A246CCE4200677253 /* UserInfo.swift in Sources */,
 				5ED208342457C8D3007EBB56 /* SceneDelegate.swift in Sources */,
 				5E3C5A642469498C00677253 /* Message.swift in Sources */,
 				5E3C5A62246947FD00677253 /* API.swift in Sources */,

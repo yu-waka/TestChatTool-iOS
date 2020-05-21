@@ -55,17 +55,17 @@ class MessageListViewModel: ObservableObject {
         })
     }
     
-    func subscribe(){
+    func subscribe(roomId:String){
         do{
             self.subscriptionWatcher = try appSyncClient?.subscribe(
-                subscription: OnCreateMessageSubscription(),
+                subscription: OnCreateMessageByRoomIdSubscription(roomId: roomId),
                 resultHandler: { (result, transaction, error) in
-                    if let onCreateMessage = result?.data?.onCreateMessage {
+                    if let result = result?.data?.onCreateMessageByRoomId {
                         let tmp = Message(
-                            id: onCreateMessage.id,
-                            roomId: onCreateMessage.roomId,
-                            message: onCreateMessage.message!,
-                            owner: onCreateMessage.owner)
+                            id: result.id,
+                            roomId: result.roomId,
+                            message: result.message!,
+                            owner: result.owner)
                         self.messageList.append(tmp)
                     } else if let error = error {
                         print("error OnCreateMessageSubscription:\(error.localizedDescription)")
@@ -78,6 +78,15 @@ class MessageListViewModel: ObservableObject {
     }
     func  unsubscribe(){
         self.subscriptionWatcher?.cancel()
+    }
+    func sendMessage(roomId:String){
+        let userName = AWSMobileClient.default().username!
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        let datetime = formatter.string(from: Date())
+        let id = datetime + userName
+        let input = CreateMessageInput(id: id, roomId: roomId, message: self.newMessage, owner: userName)
+        appSyncClient?.perform(mutation: CreateMessageMutation(input: input))
     }
 }
 
