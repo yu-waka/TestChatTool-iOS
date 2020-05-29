@@ -10,29 +10,41 @@ import SwiftUI
 
 struct SignInView: View {
     @ObservedObject var viewModel:SignInViewModel
+    @ObservedObject var keyboard = KeyboardObserver()
     var body: some View {
-        VStack(alignment: .leading){
-            Text("SignIn")
-            TextField("username", text: $viewModel.userName)
-                .autocapitalization(.none)
-                .padding(.all, 5.0)
-                .border(Color.gray)
-            SecureField("password", text: $viewModel.password)
-                .padding(.all, 5.0)
-                .cornerRadius(10)
-                .border(Color.gray)
+        NavigationView{
+            VStack(alignment: .leading){
+                TextField("username", text: $viewModel.userName)
+                    .autocapitalization(.none)
+                    .padding(.all, 5.0)
+                    .border(Color.gray)
+                SecureField("password", text: $viewModel.password)
+                    .padding(.all, 5.0)
+                    .border(Color.gray)
 
-            HStack(){
-                Spacer()
-                Button(action: {
+                HStack(){
+                    Spacer()
+                    Button(action: {
                     //サインイン処理の実行
                     self.viewModel.signIn()
-                }) {
-                    Text("SignIn")
+                    }) {
+                        Text("SignIn")
+                    }
+                    .padding(.all, 5.0)
                 }
-                .padding(.all, 5.0)
+                NavigationLink(destination: SignUpView(viewModel: SignUpViewModel())) {
+                        Text("SignUp")
+                }
+            }.navigationBarTitle("SignIn")
+            .padding()
+            .padding(.bottom,self.keyboard.keyboardHeight)
+            .animation(.easeOut)
+            .onAppear(){
+                self.keyboard.startObserve()
+            }.onDisappear(){
+                self.keyboard.stopObserve()
             }
-        }.padding()
+        }
     }
 }
 

@@ -25,7 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             switch AWSMobileClient.default().currentUserState {
                 case .signedIn:
-                    self.showHomeView(in: window)
+                    AWSMobileClient.default().signOut()
+//                    self.showHomeView(in: window)
+                    self.showSignInView(in: window)
                 case .signedOut:
                     self.showSignInView(in: window)
                 default:

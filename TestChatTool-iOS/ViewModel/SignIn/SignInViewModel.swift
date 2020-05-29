@@ -18,9 +18,13 @@ class SignInViewModel: ObservableObject{
             username: userName,
             password: password) { (result, error) in
                 if let error = error {
+
                     print("signIn error:\(error.localizedDescription)")
                 }
-                print("sgin in success")
+//                if let result = result {
+//
+//                }
+//                print("sgin in success")
         }
     }
 }

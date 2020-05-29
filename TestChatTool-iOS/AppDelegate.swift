@@ -14,7 +14,6 @@ import AWSAppSync
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var appSyncClient:AWSAppSyncClient?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //AWSモバイルクライアントの初期化

@@ -32,7 +32,8 @@ class KeyboardObserver: ObservableObject {
         {
             let endMinY = keyboardEndFrame.cgRectValue.minY
             let beginMinY = keyboardBeginFrame.cgRectValue.minY
-            self.keyboardHeight = beginMinY - endMinY
+
+            self.keyboardHeight = self.keyboardHeight + beginMinY - endMinY
             if self.keyboardHeight < 0 {
                 self.keyboardHeight = 0
             }
