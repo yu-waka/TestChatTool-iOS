@@ -8,6 +8,7 @@
 
 import Foundation
 import AWSMobileClient
+
 class SignUpViewModel: ObservableObject {
     @Published var userName:String = ""
     @Published var mailAddres:String = ""
@@ -35,7 +36,7 @@ class SignUpViewModel: ObservableObject {
                         print("signUp result:unknown")
                     }
                 } else if let error = error {
-                    
+                    print(error.localizedDescription)
                 }
         }
     }

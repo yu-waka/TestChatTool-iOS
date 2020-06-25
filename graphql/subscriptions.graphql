@@ -8,6 +8,8 @@ subscription OnCreateChatroom {
     messages {
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnUpdateChatroom {
@@ -19,6 +21,8 @@ subscription OnUpdateChatroom {
     messages {
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnDeleteChatroom {
@@ -30,6 +34,8 @@ subscription OnDeleteChatroom {
     messages {
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnCreateMessage {
@@ -38,6 +44,8 @@ subscription OnCreateMessage {
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }
 subscription OnCreateMessageByRoomId($roomId: String!) {
@@ -46,6 +54,8 @@ subscription OnCreateMessageByRoomId($roomId: String!) {
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }
 subscription OnUpdateMessage {
@@ -54,6 +64,8 @@ subscription OnUpdateMessage {
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }
 subscription OnUpdateMessageByRoomId($roomId: String!) {
@@ -62,6 +74,8 @@ subscription OnUpdateMessageByRoomId($roomId: String!) {
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }
 subscription OnDeleteMessage {
@@ -70,6 +84,8 @@ subscription OnDeleteMessage {
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }
 subscription OnDeleteMessageByRoomId($roomId: String!) {
@@ -78,5 +94,7 @@ subscription OnDeleteMessageByRoomId($roomId: String!) {
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }

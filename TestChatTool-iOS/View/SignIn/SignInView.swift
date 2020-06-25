@@ -32,9 +32,10 @@ struct SignInView: View {
                     }
                     .padding(.all, 5.0)
                 }
-                NavigationLink(destination: SignUpView(viewModel: SignUpViewModel())) {
-                        Text("SignUp")
-                }
+                //Todo サインアップ処理
+//                NavigationLink(destination: SignUpView(viewModel: SignUpViewModel())) {
+//                        Text("SignUp")
+//                }
             }.navigationBarTitle("SignIn")
             .padding()
             .padding(.bottom,self.keyboard.keyboardHeight)

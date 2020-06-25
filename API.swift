@@ -864,9 +864,113 @@ public struct ModelmessageFilterInput: GraphQLMapConvertible {
   }
 }
 
+public struct ModelIDKeyConditionInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(eq: GraphQLID? = nil, le: GraphQLID? = nil, lt: GraphQLID? = nil, ge: GraphQLID? = nil, gt: GraphQLID? = nil, between: [GraphQLID?]? = nil, beginsWith: GraphQLID? = nil) {
+    graphQLMap = ["eq": eq, "le": le, "lt": lt, "ge": ge, "gt": gt, "between": between, "beginsWith": beginsWith]
+  }
+
+  public var eq: GraphQLID? {
+    get {
+      return graphQLMap["eq"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "eq")
+    }
+  }
+
+  public var le: GraphQLID? {
+    get {
+      return graphQLMap["le"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "le")
+    }
+  }
+
+  public var lt: GraphQLID? {
+    get {
+      return graphQLMap["lt"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "lt")
+    }
+  }
+
+  public var ge: GraphQLID? {
+    get {
+      return graphQLMap["ge"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "ge")
+    }
+  }
+
+  public var gt: GraphQLID? {
+    get {
+      return graphQLMap["gt"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "gt")
+    }
+  }
+
+  public var between: [GraphQLID?]? {
+    get {
+      return graphQLMap["between"] as! [GraphQLID?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "between")
+    }
+  }
+
+  public var beginsWith: GraphQLID? {
+    get {
+      return graphQLMap["beginsWith"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "beginsWith")
+    }
+  }
+}
+
+public enum ModelSortDirection: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  public typealias RawValue = String
+  case asc
+  case desc
+  /// Auto generated constant for unknown enum values
+  case unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "ASC": self = .asc
+      case "DESC": self = .desc
+      default: self = .unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .asc: return "ASC"
+      case .desc: return "DESC"
+      case .unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: ModelSortDirection, rhs: ModelSortDirection) -> Bool {
+    switch (lhs, rhs) {
+      case (.asc, .asc): return true
+      case (.desc, .desc): return true
+      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+}
+
 public final class CreateChatroomMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateChatroom($input: CreateChatroomInput!, $condition: ModelchatroomConditionInput) {\n  createChatroom(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n  }\n}"
+    "mutation CreateChatroom($input: CreateChatroomInput!, $condition: ModelchatroomConditionInput) {\n  createChatroom(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: CreateChatroomInput
   public var condition: ModelchatroomConditionInput?
@@ -916,6 +1020,8 @@ public final class CreateChatroomMutation: GraphQLMutation {
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
         GraphQLField("messages", type: .object(Message.selections)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -924,8 +1030,8 @@ public final class CreateChatroomMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil) {
-        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -982,6 +1088,24 @@ public final class CreateChatroomMutation: GraphQLMutation {
         }
       }
 
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+
       public struct Message: GraphQLSelectionSet {
         public static let possibleTypes = ["ModelmessageConnection"]
 
@@ -1024,7 +1148,7 @@ public final class CreateChatroomMutation: GraphQLMutation {
 
 public final class UpdateChatroomMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateChatroom($input: UpdateChatroomInput!, $condition: ModelchatroomConditionInput) {\n  updateChatroom(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n  }\n}"
+    "mutation UpdateChatroom($input: UpdateChatroomInput!, $condition: ModelchatroomConditionInput) {\n  updateChatroom(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: UpdateChatroomInput
   public var condition: ModelchatroomConditionInput?
@@ -1074,6 +1198,8 @@ public final class UpdateChatroomMutation: GraphQLMutation {
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
         GraphQLField("messages", type: .object(Message.selections)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -1082,8 +1208,8 @@ public final class UpdateChatroomMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil) {
-        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1140,6 +1266,24 @@ public final class UpdateChatroomMutation: GraphQLMutation {
         }
       }
 
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+
       public struct Message: GraphQLSelectionSet {
         public static let possibleTypes = ["ModelmessageConnection"]
 
@@ -1182,7 +1326,7 @@ public final class UpdateChatroomMutation: GraphQLMutation {
 
 public final class DeleteChatroomMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteChatroom($input: DeleteChatroomInput!, $condition: ModelchatroomConditionInput) {\n  deleteChatroom(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n  }\n}"
+    "mutation DeleteChatroom($input: DeleteChatroomInput!, $condition: ModelchatroomConditionInput) {\n  deleteChatroom(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: DeleteChatroomInput
   public var condition: ModelchatroomConditionInput?
@@ -1232,6 +1376,8 @@ public final class DeleteChatroomMutation: GraphQLMutation {
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
         GraphQLField("messages", type: .object(Message.selections)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -1240,8 +1386,8 @@ public final class DeleteChatroomMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil) {
-        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1298,6 +1444,24 @@ public final class DeleteChatroomMutation: GraphQLMutation {
         }
       }
 
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+
       public struct Message: GraphQLSelectionSet {
         public static let possibleTypes = ["ModelmessageConnection"]
 
@@ -1340,7 +1504,7 @@ public final class DeleteChatroomMutation: GraphQLMutation {
 
 public final class CreateMessageMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateMessage($input: CreateMessageInput!, $condition: ModelmessageConditionInput) {\n  createMessage(input: $input, condition: $condition) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "mutation CreateMessage($input: CreateMessageInput!, $condition: ModelmessageConditionInput) {\n  createMessage(input: $input, condition: $condition) {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: CreateMessageInput
   public var condition: ModelmessageConditionInput?
@@ -1389,6 +1553,8 @@ public final class CreateMessageMutation: GraphQLMutation {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -1397,8 +1563,8 @@ public final class CreateMessageMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1445,13 +1611,31 @@ public final class CreateMessageMutation: GraphQLMutation {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class UpdateMessageMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateMessage($input: UpdateMessageInput!, $condition: ModelmessageConditionInput) {\n  updateMessage(input: $input, condition: $condition) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "mutation UpdateMessage($input: UpdateMessageInput!, $condition: ModelmessageConditionInput) {\n  updateMessage(input: $input, condition: $condition) {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: UpdateMessageInput
   public var condition: ModelmessageConditionInput?
@@ -1500,6 +1684,8 @@ public final class UpdateMessageMutation: GraphQLMutation {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -1508,8 +1694,8 @@ public final class UpdateMessageMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1556,13 +1742,31 @@ public final class UpdateMessageMutation: GraphQLMutation {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class DeleteMessageMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteMessage($input: DeleteMessageInput!, $condition: ModelmessageConditionInput) {\n  deleteMessage(input: $input, condition: $condition) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "mutation DeleteMessage($input: DeleteMessageInput!, $condition: ModelmessageConditionInput) {\n  deleteMessage(input: $input, condition: $condition) {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public var input: DeleteMessageInput
   public var condition: ModelmessageConditionInput?
@@ -1611,6 +1815,8 @@ public final class DeleteMessageMutation: GraphQLMutation {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -1619,8 +1825,8 @@ public final class DeleteMessageMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1667,13 +1873,31 @@ public final class DeleteMessageMutation: GraphQLMutation {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class GetChatroomQuery: GraphQLQuery {
   public static let operationString =
-    "query GetChatroom($id: ID!) {\n  getChatroom(id: $id) {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n  }\n}"
+    "query GetChatroom($id: ID!) {\n  getChatroom(id: $id) {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public var id: GraphQLID
 
@@ -1721,6 +1945,8 @@ public final class GetChatroomQuery: GraphQLQuery {
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
         GraphQLField("messages", type: .object(Message.selections)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -1729,8 +1955,8 @@ public final class GetChatroomQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil) {
-        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1787,6 +2013,24 @@ public final class GetChatroomQuery: GraphQLQuery {
         }
       }
 
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+
       public struct Message: GraphQLSelectionSet {
         public static let possibleTypes = ["ModelmessageConnection"]
 
@@ -1829,7 +2073,7 @@ public final class GetChatroomQuery: GraphQLQuery {
 
 public final class ListChatroomsQuery: GraphQLQuery {
   public static let operationString =
-    "query ListChatrooms($filter: ModelchatroomFilterInput, $limit: Int, $nextToken: String) {\n  listChatrooms(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      name\n      description\n      owner\n    }\n    nextToken\n  }\n}"
+    "query ListChatrooms($filter: ModelchatroomFilterInput, $limit: Int, $nextToken: String) {\n  listChatrooms(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      name\n      description\n      owner\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public var filter: ModelchatroomFilterInput?
   public var limit: Int?
@@ -1926,6 +2170,8 @@ public final class ListChatroomsQuery: GraphQLQuery {
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
           GraphQLField("description", type: .scalar(String.self)),
           GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+          GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+          GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
         ]
 
         public var snapshot: Snapshot
@@ -1934,8 +2180,8 @@ public final class ListChatroomsQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, description: String? = nil, owner: String) {
-          self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner])
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -1982,6 +2228,24 @@ public final class ListChatroomsQuery: GraphQLQuery {
             snapshot.updateValue(newValue, forKey: "owner")
           }
         }
+
+        public var createdAt: String {
+          get {
+            return snapshot["createdAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAt")
+          }
+        }
+
+        public var updatedAt: String {
+          get {
+            return snapshot["updatedAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAt")
+          }
+        }
       }
     }
   }
@@ -1989,7 +2253,7 @@ public final class ListChatroomsQuery: GraphQLQuery {
 
 public final class GetMessageQuery: GraphQLQuery {
   public static let operationString =
-    "query GetMessage($id: ID!) {\n  getMessage(id: $id) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "query GetMessage($id: ID!) {\n  getMessage(id: $id) {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public var id: GraphQLID
 
@@ -2036,6 +2300,8 @@ public final class GetMessageQuery: GraphQLQuery {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -2044,8 +2310,8 @@ public final class GetMessageQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -2092,13 +2358,31 @@ public final class GetMessageQuery: GraphQLQuery {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class ListMessagesQuery: GraphQLQuery {
   public static let operationString =
-    "query ListMessages($filter: ModelmessageFilterInput, $limit: Int, $nextToken: String) {\n  listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      roomId\n      message\n      owner\n    }\n    nextToken\n  }\n}"
+    "query ListMessages($filter: ModelmessageFilterInput, $limit: Int, $nextToken: String) {\n  listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      roomId\n      message\n      owner\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public var filter: ModelmessageFilterInput?
   public var limit: Int?
@@ -2195,6 +2479,8 @@ public final class ListMessagesQuery: GraphQLQuery {
           GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("message", type: .scalar(String.self)),
           GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+          GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+          GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
         ]
 
         public var snapshot: Snapshot
@@ -2203,8 +2489,8 @@ public final class ListMessagesQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-          self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+        public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -2251,6 +2537,210 @@ public final class ListMessagesQuery: GraphQLQuery {
             snapshot.updateValue(newValue, forKey: "owner")
           }
         }
+
+        public var createdAt: String {
+          get {
+            return snapshot["createdAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAt")
+          }
+        }
+
+        public var updatedAt: String {
+          get {
+            return snapshot["updatedAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAt")
+          }
+        }
+      }
+    }
+  }
+}
+
+public final class QuerymessagesByRoomQuery: GraphQLQuery {
+  public static let operationString =
+    "query QuerymessagesByRoom($roomId: ID!, $id: ModelIDKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelmessageFilterInput, $limit: Int, $nextToken: String) {\n  querymessagesByRoom(roomId: $roomId, id: $id, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      roomId\n      message\n      owner\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+
+  public var roomId: GraphQLID
+  public var id: ModelIDKeyConditionInput?
+  public var sortDirection: ModelSortDirection?
+  public var filter: ModelmessageFilterInput?
+  public var limit: Int?
+  public var nextToken: String?
+
+  public init(roomId: GraphQLID, id: ModelIDKeyConditionInput? = nil, sortDirection: ModelSortDirection? = nil, filter: ModelmessageFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.roomId = roomId
+    self.id = id
+    self.sortDirection = sortDirection
+    self.filter = filter
+    self.limit = limit
+    self.nextToken = nextToken
+  }
+
+  public var variables: GraphQLMap? {
+    return ["roomId": roomId, "id": id, "sortDirection": sortDirection, "filter": filter, "limit": limit, "nextToken": nextToken]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("querymessagesByRoom", arguments: ["roomId": GraphQLVariable("roomId"), "id": GraphQLVariable("id"), "sortDirection": GraphQLVariable("sortDirection"), "filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(QuerymessagesByRoom.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(querymessagesByRoom: QuerymessagesByRoom? = nil) {
+      self.init(snapshot: ["__typename": "Query", "querymessagesByRoom": querymessagesByRoom.flatMap { $0.snapshot }])
+    }
+
+    public var querymessagesByRoom: QuerymessagesByRoom? {
+      get {
+        return (snapshot["querymessagesByRoom"] as? Snapshot).flatMap { QuerymessagesByRoom(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "querymessagesByRoom")
+      }
+    }
+
+    public struct QuerymessagesByRoom: GraphQLSelectionSet {
+      public static let possibleTypes = ["ModelmessageConnection"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .list(.object(Item.selections))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(items: [Item?]? = nil, nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "ModelmessageConnection", "items": items.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, "nextToken": nextToken])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var items: [Item?]? {
+        get {
+          return (snapshot["items"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Item(snapshot: $0) } } }
+        }
+        set {
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "items")
+        }
+      }
+
+      public var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
+
+      public struct Item: GraphQLSelectionSet {
+        public static let possibleTypes = ["message"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("message", type: .scalar(String.self)),
+          GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+          GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+          GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public var snapshot: Snapshot
+
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+          self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var roomId: GraphQLID {
+          get {
+            return snapshot["roomId"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "roomId")
+          }
+        }
+
+        public var message: String? {
+          get {
+            return snapshot["message"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "message")
+          }
+        }
+
+        public var owner: String {
+          get {
+            return snapshot["owner"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        public var createdAt: String {
+          get {
+            return snapshot["createdAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAt")
+          }
+        }
+
+        public var updatedAt: String {
+          get {
+            return snapshot["updatedAt"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAt")
+          }
+        }
       }
     }
   }
@@ -2258,7 +2748,7 @@ public final class ListMessagesQuery: GraphQLQuery {
 
 public final class OnCreateChatroomSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateChatroom {\n  onCreateChatroom {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n  }\n}"
+    "subscription OnCreateChatroom {\n  onCreateChatroom {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -2299,6 +2789,8 @@ public final class OnCreateChatroomSubscription: GraphQLSubscription {
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
         GraphQLField("messages", type: .object(Message.selections)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -2307,8 +2799,8 @@ public final class OnCreateChatroomSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil) {
-        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -2362,6 +2854,24 @@ public final class OnCreateChatroomSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue?.snapshot, forKey: "messages")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
         }
       }
 
@@ -2407,7 +2917,7 @@ public final class OnCreateChatroomSubscription: GraphQLSubscription {
 
 public final class OnUpdateChatroomSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateChatroom {\n  onUpdateChatroom {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n  }\n}"
+    "subscription OnUpdateChatroom {\n  onUpdateChatroom {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -2448,6 +2958,8 @@ public final class OnUpdateChatroomSubscription: GraphQLSubscription {
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
         GraphQLField("messages", type: .object(Message.selections)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -2456,8 +2968,8 @@ public final class OnUpdateChatroomSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil) {
-        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -2511,6 +3023,24 @@ public final class OnUpdateChatroomSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue?.snapshot, forKey: "messages")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
         }
       }
 
@@ -2556,7 +3086,7 @@ public final class OnUpdateChatroomSubscription: GraphQLSubscription {
 
 public final class OnDeleteChatroomSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteChatroom {\n  onDeleteChatroom {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n  }\n}"
+    "subscription OnDeleteChatroom {\n  onDeleteChatroom {\n    __typename\n    id\n    name\n    description\n    owner\n    messages {\n      __typename\n      nextToken\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -2597,6 +3127,8 @@ public final class OnDeleteChatroomSubscription: GraphQLSubscription {
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
         GraphQLField("messages", type: .object(Message.selections)),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -2605,8 +3137,8 @@ public final class OnDeleteChatroomSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil) {
-        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String, messages: Message? = nil, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "chatroom", "id": id, "name": name, "description": description, "owner": owner, "messages": messages.flatMap { $0.snapshot }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -2663,6 +3195,24 @@ public final class OnDeleteChatroomSubscription: GraphQLSubscription {
         }
       }
 
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+
       public struct Message: GraphQLSelectionSet {
         public static let possibleTypes = ["ModelmessageConnection"]
 
@@ -2705,7 +3255,7 @@ public final class OnDeleteChatroomSubscription: GraphQLSubscription {
 
 public final class OnCreateMessageSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateMessage {\n  onCreateMessage {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "subscription OnCreateMessage {\n  onCreateMessage {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -2745,6 +3295,8 @@ public final class OnCreateMessageSubscription: GraphQLSubscription {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -2753,8 +3305,8 @@ public final class OnCreateMessageSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -2801,13 +3353,31 @@ public final class OnCreateMessageSubscription: GraphQLSubscription {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class OnCreateMessageByRoomIdSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateMessageByRoomId($roomId: String!) {\n  onCreateMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "subscription OnCreateMessageByRoomId($roomId: String!) {\n  onCreateMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public var roomId: String
 
@@ -2854,6 +3424,8 @@ public final class OnCreateMessageByRoomIdSubscription: GraphQLSubscription {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -2862,8 +3434,8 @@ public final class OnCreateMessageByRoomIdSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -2910,13 +3482,31 @@ public final class OnCreateMessageByRoomIdSubscription: GraphQLSubscription {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class OnUpdateMessageSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateMessage {\n  onUpdateMessage {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "subscription OnUpdateMessage {\n  onUpdateMessage {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -2956,6 +3546,8 @@ public final class OnUpdateMessageSubscription: GraphQLSubscription {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -2964,8 +3556,8 @@ public final class OnUpdateMessageSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -3012,13 +3604,31 @@ public final class OnUpdateMessageSubscription: GraphQLSubscription {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class OnUpdateMessageByRoomIdSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateMessageByRoomId($roomId: String!) {\n  onUpdateMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "subscription OnUpdateMessageByRoomId($roomId: String!) {\n  onUpdateMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public var roomId: String
 
@@ -3065,6 +3675,8 @@ public final class OnUpdateMessageByRoomIdSubscription: GraphQLSubscription {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -3073,8 +3685,8 @@ public final class OnUpdateMessageByRoomIdSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -3121,13 +3733,31 @@ public final class OnUpdateMessageByRoomIdSubscription: GraphQLSubscription {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class OnDeleteMessageSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteMessage {\n  onDeleteMessage {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "subscription OnDeleteMessage {\n  onDeleteMessage {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public init() {
   }
@@ -3167,6 +3797,8 @@ public final class OnDeleteMessageSubscription: GraphQLSubscription {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -3175,8 +3807,8 @@ public final class OnDeleteMessageSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -3223,13 +3855,31 @@ public final class OnDeleteMessageSubscription: GraphQLSubscription {
           snapshot.updateValue(newValue, forKey: "owner")
         }
       }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
     }
   }
 }
 
 public final class OnDeleteMessageByRoomIdSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteMessageByRoomId($roomId: String!) {\n  onDeleteMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n  }\n}"
+    "subscription OnDeleteMessageByRoomId($roomId: String!) {\n  onDeleteMessageByRoomID(roomId: $roomId) {\n    __typename\n    id\n    roomId\n    message\n    owner\n    createdAt\n    updatedAt\n  }\n}"
 
   public var roomId: String
 
@@ -3276,6 +3926,8 @@ public final class OnDeleteMessageByRoomIdSubscription: GraphQLSubscription {
         GraphQLField("roomId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("message", type: .scalar(String.self)),
         GraphQLField("owner", type: .nonNull(.scalar(String.self))),
+        GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
       ]
 
       public var snapshot: Snapshot
@@ -3284,8 +3936,8 @@ public final class OnDeleteMessageByRoomIdSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String) {
-        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner])
+      public init(id: GraphQLID, roomId: GraphQLID, message: String? = nil, owner: String, createdAt: String, updatedAt: String) {
+        self.init(snapshot: ["__typename": "message", "id": id, "roomId": roomId, "message": message, "owner": owner, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -3330,6 +3982,24 @@ public final class OnDeleteMessageByRoomIdSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      public var createdAt: String {
+        get {
+          return snapshot["createdAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var updatedAt: String {
+        get {
+          return snapshot["updatedAt"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAt")
         }
       }
     }

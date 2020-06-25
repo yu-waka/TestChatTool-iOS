@@ -8,6 +8,8 @@ query GetChatroom($id: ID!) {
     messages {
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 query ListChatrooms(
@@ -21,6 +23,8 @@ query ListChatrooms(
       name
       description
       owner
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -31,6 +35,8 @@ query GetMessage($id: ID!) {
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }
 query ListMessages(
@@ -44,6 +50,35 @@ query ListMessages(
       roomId
       message
       owner
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query QuerymessagesByRoom(
+  $roomId: ID!
+  $id: ModelIDKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelmessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  querymessagesByRoom(
+    roomId: $roomId
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      roomId
+      message
+      owner
+      createdAt
+      updatedAt
     }
     nextToken
   }

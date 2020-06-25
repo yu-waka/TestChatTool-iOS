@@ -11,6 +11,8 @@ mutation CreateChatroom(
     messages {
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateChatroom(
@@ -25,6 +27,8 @@ mutation UpdateChatroom(
     messages {
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteChatroom(
@@ -39,6 +43,8 @@ mutation DeleteChatroom(
     messages {
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 mutation CreateMessage(
@@ -50,6 +56,8 @@ mutation CreateMessage(
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateMessage(
@@ -61,6 +69,8 @@ mutation UpdateMessage(
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteMessage(
@@ -72,5 +82,7 @@ mutation DeleteMessage(
     roomId
     message
     owner
+    createdAt
+    updatedAt
   }
 }

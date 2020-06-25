@@ -1,5 +1,5 @@
 //
-//  ConfilmSginUpView.swift
+//  ConfilmSignUpView.swift
 //  TestChatTool-iOS
 //
 //  Created by yu-waka on 2020/05/29.
@@ -8,16 +8,16 @@
 
 import SwiftUI
 
-struct ConfilmSginUpView: View {
+struct ConfilmSignUpView: View {
     var body: some View {
         VStack(alignment: .leading){
-            
+            Text("ConfilmSignUp")
         }
     }
 }
 
-struct ConfirmSignUp_Previews: PreviewProvider {
+struct ConfirmSignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        ConfirmSignUp()
+        ConfilmSignUpView()
     }
 }
